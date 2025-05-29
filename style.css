@@ -285,3 +285,43 @@ body {
     font-weight: 700;
     font-display: swap;
 }
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.btn {
+  background: var(--color-accent);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.lazy-background {
+  background-image: url('placeholder.jpg');
+}
+
+.loaded {
+  background-image: url('real-image.jpg');
+}

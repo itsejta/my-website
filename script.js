@@ -54,4 +54,32 @@ navToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
 });
 
+// Для обычных изображений
+document.addEventListener("DOMContentLoaded", () => {
+  const lazyImages = [].slice.call(document.querySelectorAll("img.lazyload"));
 
+  if ("IntersectionObserver" in window) {
+    const lazyImageObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.classList.remove("lazyload");
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    });
+
+    lazyImages.forEach((lazyImage) => {
+      lazyImageObserver.observe(lazyImage);
+    });
+  }
+});
+
+// Для фоновых изображений
+const lazyBackgrounds = document.querySelectorAll('.lazy-background');
+window.addEventListener('load', () => {
+  lazyBackgrounds.forEach(background => {
+    background.classList.add('loaded');
+  });
+});
