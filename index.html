@@ -14,12 +14,20 @@
     <!-- Hero-секция -->
     <header class="hero">
         <div class="container">
-            <div class="hero__content">
-                <h1 class="hero__title">Привет, я <span>Сархан</span></h1>
-                <p class="hero__subtitle">Frontend разработчик</p>
-                <div class="hero__scroller">
-                    <span>Листайте вниз</span>
-                    <div class="hero__arrow"></div>
+            <div class="header__inner">
+                <!-- Кнопка переключения темы -->
+                <button class="theme-toggle" aria-label="Переключить тему">
+                    <span class="theme-icon light-icon">☀️</span>
+                    <span class="theme-icon dark-icon">🌙</span>
+                </button>
+                
+                <div class="hero__content">
+                    <h1 class="hero__title">Привет, я <span>Сархан</span></h1>
+                    <p class="hero__subtitle">Frontend разработчик</p>
+                    <div class="hero__scroller">
+                        <span>Листайте вниз</span>
+                        <div class="hero__arrow"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,7 +44,7 @@
             </div>
             <div class="about__grid">
                 <div class="about__image">
-                    <img src="images/placeholder-about.webp" data-src="images/about.webp" alt="Моё фото" loading="lazy" class="lazyload">
+                    <img src="images/placeholder-about.jpg" data-src="images/about.jpg" alt="Моё фото" loading="lazy" class="lazyload">
                 </div>
                 <div class="about__content">
                     <p>Я профессиональный веб-разработчик с 5-летним опытом. Специализируюсь на создании современных адаптивных интерфейсов.</p>
@@ -63,21 +71,21 @@
                 <!-- Проект 1 -->
                 <div class="project-card">
                     <div class="project-card__image">
-                        <img src="images/placeholder-project.webp" data-src="images/project1.jpg" alt="Проект 1" loading="lazy" class="lazyload">
+                        <img src="images/placeholder.jpg" data-src="images/project1.jpg" alt="Проект 1" loading="lazy" class="lazyload">
                         <div class="project-card__overlay">
-                            <a href="https://t.me/BesediSDurkoi" class="btn">Подробнее</a>
+                            <a href="#" class="btn">Подробнее</a>
                         </div>
                     </div>
                     <div class="project-card__content">
-                        <h3>Как я встретил дурку вокруг</h3>
-                        <p>Телеграм-канал</p>
+                        <h3>Интернет-магазин</h3>
+                        <p>Полный цикл разработки</p>
                     </div>
                 </div>
                 
                 <!-- Проект 2 -->
                 <div class="project-card">
                     <div class="project-card__image">
-                        <img src="images/placeholder-project.webp" data-src="images/project2.webp" alt="Проект 2" loading="lazy" class="lazyload">
+                        <img src="images/placeholder.jpg" data-src="images/project2.jpg" alt="Проект 2" loading="lazy" class="lazyload">
                         <div class="project-card__overlay">
                             <a href="#" class="btn">Подробнее</a>
                         </div>
@@ -91,7 +99,7 @@
                 <!-- Проект 3 -->
                 <div class="project-card">
                     <div class="project-card__image">
-                        <img src="images/placeholder-project.webp" data-src="images/project3.webp" alt="Проект 3" loading="lazy" class="lazyload">
+                        <img src="images/placeholder.jpg" data-src="images/project3.jpg" alt="Проект 3" loading="lazy" class="lazyload">
                         <div class="project-card__overlay">
                             <a href="#" class="btn">Подробнее</a>
                         </div>

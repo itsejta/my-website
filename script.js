@@ -1,4 +1,25 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Переключение темы
+    const themeToggle = document.querySelector('.theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    
+    // Применяем текущую тему при загрузке
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        
+        // Анимация переключения
+        themeToggle.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            themeToggle.style.transform = 'scale(1)';
+        }, 200);
+    });
+    
     // Ленивая загрузка изображений
     const lazyImages = [].slice.call(document.querySelectorAll('.lazyload'));
     
