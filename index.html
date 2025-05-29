@@ -3,157 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Портфолио веб-разработчика</title>
+    <title>Портфолио | Веб-разработчик</title>
     <meta name="description" content="Профессиональное портфолио веб-разработчика">
-    <meta name="keywords" content="веб-разработка, портфолио, сайты">
-    <meta name="author" content="Ваше Имя">
-    
-    <!-- OpenGraph -->
-    <meta property="og:title" content="Портфолио веб-разработчика">
-    <meta property="og:description" content="Создаю современные и адаптивные веб-сайты">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://вашсайт.ru">
-    <meta property="og:image" content="https://вашсайт.ru/preview.jpg">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    
-    <!-- Шрифты -->
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <!-- Стили -->
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
+    <!-- Hero-секция -->
+    <header class="hero">
         <div class="container">
-            <div class="header__inner">
-                <h1 class="header__title">Привет, я <span>веб-разработчик</span></h1>
-                <button class="theme-toggle" aria-label="Toggle theme">
-                    <span class="theme-icon">🌓</span>
-                </button>
-                <nav class="nav">
-                    <button class="nav__toggle" aria-label="Menu">☰</button>
-                    <div class="nav__menu">
-                        <a href="#about" class="nav__link">Обо мне</a>
-                        <a href="#projects" class="nav__link">Проекты</a>
-                        <a href="#contact" class="nav__link">Контакты</a>
-                    </div>
-                </nav>
+            <div class="hero__content">
+                <h1 class="hero__title">Привет, я <span>Сархан</span></h1>
+                <p class="hero__subtitle">Frontend разработчик</p>
+                <div class="hero__scroller">
+                    <span>Листайте вниз</span>
+                    <div class="hero__arrow"></div>
+                </div>
             </div>
         </div>
+        <div class="hero__divider"></div>
     </header>
 
-    <main>
-        <section id="about" class="section about">
-            <div class="container">
-                <div class="about__grid">
-                    <div class="about__text">
-                        <h2 class="section__title">Обо мне</h2>
-                        <p class="section__text">Профессиональный веб-разработчик с 5-летним опытом создания современных и адаптивных веб-сайтов. Специализируюсь на фронтенд разработке с использованием HTML5, CSS3 и JavaScript.</p>
-                    </div>
-                    <div class="about__image">
-                        <img 
-                            src="placeholder-about.jpg" 
-                            data-src="about.jpg" 
-                            alt="Фото разработчика" 
-                            loading="lazy"
-                            class="lazyload image-zoom"
-                        >
+    <!-- Секция "Обо мне" -->
+    <section id="about" class="section about">
+        <div class="container">
+            <div class="section__header">
+                <span class="section__subtitle">Познакомимся</span>
+                <h2 class="section__title">Обо мне</h2>
+                <div class="section__divider"></div>
+            </div>
+            <div class="about__grid">
+                <div class="about__image">
+                    <img src="images/placeholder-about.jpg" data-src="images/about.jpg" alt="Моё фото" loading="lazy" class="lazyload">
+                </div>
+                <div class="about__content">
+                    <p>Я профессиональный веб-разработчик с 5-летним опытом. Специализируюсь на создании современных адаптивных интерфейсов.</p>
+                    <div class="skills">
+                        <span class="skill">HTML/CSS</span>
+                        <span class="skill">JavaScript</span>
+                        <span class="skill">React</span>
+                        <span class="skill">UI/UX</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="projects" class="section projects">
-            <div class="container">
-                <h2 class="section__title">Мои проекты</h2>
-                <div class="projects__grid">
-                    <div class="project-card">
-                        <div class="project-card__image-wrapper">
-                            <img 
-                                src="placeholder-project.jpg" 
-                                data-src="project1.jpg" 
-                                alt="Интернет-магазин" 
-                                loading="lazy"
-                                class="lazyload image-blur"
-                            >
-                            <div class="project-card__overlay">
-                                <a href="#" class="project-link">Посмотреть проект →</a>
-                            </div>
+    <!-- Секция проектов -->
+    <section id="projects" class="section projects">
+        <div class="container">
+            <div class="section__header">
+                <span class="section__subtitle">Мои работы</span>
+                <h2 class="section__title">Проекты</h2>
+                <div class="section__divider"></div>
+            </div>
+            <div class="projects__grid">
+                <!-- Проект 1 -->
+                <div class="project-card">
+                    <div class="project-card__image">
+                        <img src="images/placeholder-project.jpg" data-src="images/project1.jpg" alt="Проект 1" loading="lazy" class="lazyload">
+                        <div class="project-card__overlay">
+                            <a href="#" class="btn">Подробнее</a>
                         </div>
-                        <h3 class="project-card__title">Интернет-магазин</h3>
-                        <p class="project-card__desc">React + Node.js, корзина, фильтры</p>
                     </div>
-                    
-                    <div class="project-card">
-                        <div class="project-card__image-wrapper">
-                            <img 
-                                src="placeholder-project.jpg" 
-                                data-src="project2.jpg" 
-                                alt="Блог о путешествиях" 
-                                loading="lazy"
-                                class="lazyload image-blur"
-                            >
-                            <div class="project-card__overlay">
-                                <a href="#" class="project-link">Посмотреть проект →</a>
-                            </div>
-                        </div>
-                        <h3 class="project-card__title">Блог о путешествиях</h3>
-                        <p class="project-card__desc">HTML/CSS, анимации, адаптив</p>
+                    <div class="project-card__content">
+                        <h3>Интернет-магазин</h3>
+                        <p>Полный цикл разработки</p>
                     </div>
-                    
-                    <div class="project-card">
-                        <div class="project-card__image-wrapper">
-                            <img 
-                                src="placeholder-project.jpg" 
-                                data-src="project3.jpg" 
-                                alt="Портфолио фотографа" 
-                                loading="lazy"
-                                class="lazyload image-blur"
-                            >
-                            <div class="project-card__overlay">
-                                <a href="#" class="project-link">Посмотреть проект →</a>
-                            </div>
+                </div>
+                
+                <!-- Проект 2 -->
+                <div class="project-card">
+                    <div class="project-card__image">
+                        <img src="images/placeholder-project.jpg" data-src="images/project2.jpg" alt="Проект 2" loading="lazy" class="lazyload">
+                        <div class="project-card__overlay">
+                            <a href="#" class="btn">Подробнее</a>
                         </div>
-                        <h3 class="project-card__title">Портфолио фотографа</h3>
-                        <p class="project-card__desc">JavaScript, галерея с лайтбоксом</p>
+                    </div>
+                    <div class="project-card__content">
+                        <h3>Корпоративный сайт</h3>
+                        <p>Дизайн и разработка</p>
+                    </div>
+                </div>
+                
+                <!-- Проект 3 -->
+                <div class="project-card">
+                    <div class="project-card__image">
+                        <img src="images/placeholder-project.jpg" data-src="images/project3.jpg" alt="Проект 3" loading="lazy" class="lazyload">
+                        <div class="project-card__overlay">
+                            <a href="#" class="btn">Подробнее</a>
+                        </div>
+                    </div>
+                    <div class="project-card__content">
+                        <h3>Мобильное приложение</h3>
+                        <p>React Native разработка</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="contact" class="section contact">
-            <div class="container">
-                <h2 class="section__title">Свяжитесь со мной</h2>
-                <form 
-                    action="https://formspree.io/f/ваш-id" 
-                    method="POST"
-                    class="contact-form"
-                >
-                    <input type="text" name="name" placeholder="Ваше имя" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <textarea name="message" placeholder="Сообщение" rows="5" required></textarea>
-                    <button type="submit" class="btn">Отправить</button>
+    <!-- Секция контактов -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <div class="section__header">
+                <span class="section__subtitle">Свяжитесь со мной</span>
+                <h2 class="section__title">Контакты</h2>
+                <div class="section__divider"></div>
+            </div>
+            <div class="contact__grid">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Ваше сообщение" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn--primary">Отправить</button>
                 </form>
+                <div class="contact__info">
+                    <a href="mailto:example@mail.com" class="contact-link">
+                        <span>Email:</span> example@mail.com
+                    </a>
+                    <a href="tel:+1234567890" class="contact-link">
+                        <span>Телефон:</span> +1 (234) 567-890
+                    </a>
+                    <div class="social-links">
+                        <a href="#" class="social-link">GitHub</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                        <a href="#" class="social-link">Telegram</a>
+                    </div>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
+    <!-- Футер -->
     <footer class="footer">
         <div class="container">
-            <div class="footer__content">
-                <p class="footer__text">© 2023 Все права защищены</p>
-                <div class="social-links">
-                    <a href="#" class="social-link">GitHub</a>
-                    <a href="#" class="social-link">Telegram</a>
-                    <a href="#" class="social-link">LinkedIn</a>
-                </div>
-            </div>
+            <p>&copy; 2023 Все права защищены</p>
         </div>
     </footer>
 
