@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой сайт</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="header__title">Привет, я <span>веб-разработчик</span></h1>
+            <nav class="nav">
+                <button class="nav__toggle" aria-label="Menu">☰</button>
+                <div class="nav__menu">
+                    <a href="#about" class="nav__link">Обо мне</a>
+                    <a href="#projects" class="nav__link">Проекты</a>
+                    <a href="#contacts" class="nav__link">Контакты</a>
+                </div>
+            </nav>
+        </div>
+        <button class="theme-toggle" aria-label="Toggle theme">
+            <span class="theme-icon">🌓</span>
+        </button>
+    </header>
+
+    <main>
+        <section id="about" class="section about">
+            <div class="container">
+                <h2 class="section__title">Обо мне</h2>
+                <p class="section__text">Я создаю современные и минималистичные сайты. Люблю чистый код и продуманный дизайн.</p>
+            </div>
+        </section>
+
+        <section id="projects" class="section projects">
+            <div class="container">
+                <h2 class="section__title">Мои работы</h2>
+                <div class="projects__grid">
+                    <div class="project-card">
+                        <h3 class="project-card__title">Интернет-магазин</h3>
+                        <p class="project-card__desc">React + Node.js, корзина, фильтры</p>
+                        <a href="https://example-shop.com" class="project-card__link">Посмотреть →</a>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-card__title">Блог о путешествиях</h3>
+                        <p class="project-card__desc">HTML/CSS, анимации, адаптив</p>
+                        <a href="https://travel-blog-example.netlify.app" class="project-card__link">Посмотреть →</a>
+                    </div>
+                    <div class="project-card">
+                        <h3 class="project-card__title">Портфолио фотографа</h3>
+                        <p class="project-card__desc">JavaScript, галерея с лайтбоксом</p>
+                        <a href="https://photo-portfolio.vercel.app" class="project-card__link">Посмотреть →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacts" class="footer">
+        <div class="container">
+            <p class="footer__text">Свяжись со мной:</p>
+            <a href="mailto:example@mail.com" class="footer__link">example@mail.com</a>
+            <div class="social-links">
+                <a href="#" class="social-link">GitHub</a>
+                <a href="#" class="social-link">Telegram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
