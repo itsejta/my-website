@@ -11,6 +11,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Админская кнопка -->
+    <button id="admin-btn" class="admin-btn">Админ</button>
+    
+    <!-- Модальное окно авторизации -->
+    <div id="admin-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Авторизация</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <input type="text" id="username" placeholder="Логин" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Пароль" required>
+                </div>
+                <button type="submit" class="btn">Войти</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Hero-секция -->
     <header class="hero">
         <div class="container">
@@ -22,7 +42,7 @@
                 </button>
                 
                 <div class="hero__content">
-                    <h1 class="hero__title">Привет, я <span>Сархан</span></h1>
+                    <h1 class="hero__title">Привет, я <span id="hero-name">Алексей</span></h1>
                     <p class="hero__subtitle">Frontend разработчик</p>
                     <div class="hero__scroller">
                         <span>Листайте вниз</span>
@@ -47,7 +67,7 @@
                     <img src="images/placeholder-about.jpg" data-src="images/about.jpg" alt="Моё фото" loading="lazy" class="lazyload">
                 </div>
                 <div class="about__content">
-                    <p>Я профессиональный веб-разработчик с 5-летним опытом. Специализируюсь на создании современных адаптивных интерфейсов.</p>
+                    <p id="about-text">Я профессиональный веб-разработчик с 5-летним опытом. Специализируюсь на создании современных адаптивных интерфейсов.</p>
                     <div class="skills">
                         <span class="skill">HTML/CSS</span>
                         <span class="skill">JavaScript</span>
@@ -67,48 +87,8 @@
                 <h2 class="section__title">Проекты</h2>
                 <div class="section__divider"></div>
             </div>
-            <div class="projects__grid">
-                <!-- Проект 1 -->
-                <div class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/placeholder.jpg" data-src="images/project1.jpg" alt="Проект 1" loading="lazy" class="lazyload">
-                        <div class="project-card__overlay">
-                            <a href="#" class="btn">Подробнее</a>
-                        </div>
-                    </div>
-                    <div class="project-card__content">
-                        <h3>Интернет-магазин</h3>
-                        <p>Полный цикл разработки</p>
-                    </div>
-                </div>
-                
-                <!-- Проект 2 -->
-                <div class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/placeholder.jpg" data-src="images/project2.jpg" alt="Проект 2" loading="lazy" class="lazyload">
-                        <div class="project-card__overlay">
-                            <a href="#" class="btn">Подробнее</a>
-                        </div>
-                    </div>
-                    <div class="project-card__content">
-                        <h3>Корпоративный сайт</h3>
-                        <p>Дизайн и разработка</p>
-                    </div>
-                </div>
-                
-                <!-- Проект 3 -->
-                <div class="project-card">
-                    <div class="project-card__image">
-                        <img src="images/placeholder.jpg" data-src="images/project3.jpg" alt="Проект 3" loading="lazy" class="lazyload">
-                        <div class="project-card__overlay">
-                            <a href="#" class="btn">Подробнее</a>
-                        </div>
-                    </div>
-                    <div class="project-card__content">
-                        <h3>Мобильное приложение</h3>
-                        <p>React Native разработка</p>
-                    </div>
-                </div>
+            <div class="projects__grid" id="projects-container">
+                <!-- Проекты будут загружаться динамически -->
             </div>
         </div>
     </section>
@@ -136,10 +116,10 @@
                 </form>
                 <div class="contact__info">
                     <a href="mailto:example@mail.com" class="contact-link">
-                        <span>Email:</span> example@mail.com
+                        <span>Email:</span> <span id="contact-email">example@mail.com</span>
                     </a>
                     <a href="tel:+1234567890" class="contact-link">
-                        <span>Телефон:</span> +1 (234) 567-890
+                        <span>Телефон:</span> <span id="contact-phone">+1 (234) 567-890</span>
                     </a>
                     <div class="social-links">
                         <a href="#" class="social-link">GitHub</a>
@@ -154,7 +134,7 @@
     <!-- Футер -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2023 Все права защищены</p>
+            <p>&copy; <span id="current-year">2023</span> Все права защищены</p>
         </div>
     </footer>
 

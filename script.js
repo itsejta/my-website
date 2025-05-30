@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Установка текущего года в футере
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    
     // Переключение темы
     const themeToggle = document.querySelector('.theme-toggle');
     const currentTheme = localStorage.getItem('theme') || 'light';
@@ -78,4 +81,115 @@ document.addEventListener('DOMContentLoaded', function() {
     
     window.addEventListener('load', animateOnScroll);
     window.addEventListener('scroll', animateOnScroll);
+    
+    // ===== АДМИНСКИЙ ФУНКЦИОНАЛ =====
+    
+    // Элементы админки
+    const adminBtn = document.getElementById('admin-btn');
+    const modal = document.getElementById('admin-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const loginForm = document.getElementById('login-form');
+    
+    // Конфигурация доступа
+    const ADMIN_CREDENTIALS = {
+        login: 'admin',
+        password: 'admin123'
+    };
+    
+    // Проверка авторизации
+    if (localStorage.getItem('admin-authenticated')) {
+        adminBtn.textContent = '✎ Админ';
+    }
+    
+    // Показать/скрыть модальное окно
+    if (adminBtn && modal) {
+        adminBtn.addEventListener('click', () => {
+            modal.style.display = 'block';
+        });
+    
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    
+        // Авторизация
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
+                localStorage.setItem('admin-authenticated', 'true');
+                modal.style.display = 'none';
+                window.location.href = 'admin.html';
+            } else {
+                alert('Неверные данные!');
+            }
+        });
+    }
+    
+    // Загрузка сохранённого контента
+    function loadSavedContent() {
+        // Имя
+        const savedName = localStorage.getItem('hero-name');
+        if (savedName) {
+            document.getElementById('hero-name').textContent = savedName;
+        }
+        
+        // Обо мне
+        const savedAbout = localStorage.getItem('about-text');
+        if (savedAbout) {
+            document.getElementById('about-text').textContent = savedAbout;
+        }
+        
+        // Контакты
+        const savedEmail = localStorage.getItem('contact-email');
+        if (savedEmail) {
+            document.getElementById('contact-email').textContent = savedEmail;
+        }
+        
+        const savedPhone = localStorage.getItem('contact-phone');
+        if (savedPhone) {
+            document.getElementById('contact-phone').textContent = savedPhone;
+        }
+        
+        // Проекты
+        const savedProjects = JSON.parse(localStorage.getItem('projects') || '[]');
+        if (savedProjects.length > 0) {
+            renderProjects(savedProjects);
+        }
+    }
+    
+    // Рендер проектов
+    function renderProjects(projects) {
+        const container = document.getElementById('projects-container');
+        container.innerHTML = '';
+        
+        projects.forEach(project => {
+            const projectEl = document.createElement('div');
+            projectEl.className = 'project-card';
+            projectEl.innerHTML = `
+                <div class="project-card__image">
+                    <img src="${project.image}" data-src="${project.image}" alt="${project.title}" loading="lazy" class="lazyload">
+                    <div class="project-card__overlay">
+                        <a href="#" class="btn">Подробнее</a>
+                    </div>
+                </div>
+                <div class="project-card__content">
+                    <h3>${project.title}</h3>
+                    <p>${project.desc}</p>
+                </div>
+            `;
+            container.appendChild(projectEl);
+        });
+    }
+    
+    // Загружаем сохранённый контент при загрузке страницы
+    window.addEventListener('load', loadSavedContent);
 });

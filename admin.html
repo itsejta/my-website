@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-panel">
+    <header class="admin-header">
+        <div class="container">
+            <div class="admin-header__inner">
+                <h1 class="admin-header__title">Панель управления сайтом</h1>
+                <button id="logout-btn" class="btn btn--logout">Выйти</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <div class="container">
+            <div class="admin-grid">
+                <!-- Блок 1: Общая информация -->
+                <section class="admin-section admin-section--general">
+                    <div class="section-header">
+                        <h2 class="section-title">Общая информация</h2>
+                        <div class="section-divider"></div>
+                    </div>
+                    
+                    <div class="form-block">
+                        <div class="form-group">
+                            <label class="form-label">Имя в заголовке</label>
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                id="admin-hero-name"
+                                value="Алексей"
+                                data-content-id="hero-name"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Текст "Обо мне"</label>
+                            <textarea 
+                                class="form-textarea" 
+                                id="admin-about-text"
+                                data-content-id="about-text"
+                            >Я профессиональный веб-разработчик с 5-летним опытом. Специализируюсь на создании современных адаптивных интерфейсов.</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input 
+                                type="email" 
+                                class="form-input" 
+                                id="admin-contact-email"
+                                value="example@mail.com"
+                                data-content-id="contact-email"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Телефон</label>
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                id="admin-contact-phone"
+                                value="+1 (234) 567-890"
+                                data-content-id="contact-phone"
+                            >
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button id="save-general" class="btn btn--primary">Сохранить изменения</button>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Блок 2: Контент -->
+                <section class="admin-section admin-section--content">
+                    <div class="section-header">
+                        <h2 class="section-title">Управление контентом</h2>
+                        <div class="section-divider"></div>
+                    </div>
+                    
+                    <div class="form-block">
+                        <h3 class="form-subtitle">Проекты</h3>
+                        
+                        <div id="projects-list" class="projects-list">
+                            <!-- Проекты будут загружаться здесь -->
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Название проекта</label>
+                            <input type="text" class="form-input" id="project-title" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Описание</label>
+                            <textarea class="form-textarea" id="project-desc" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">URL изображения</label>
+                            <input type="text" class="form-input" id="project-image">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button id="add-project" class="btn btn--primary">Добавить проект</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>
