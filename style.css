@@ -191,7 +191,7 @@ body {
 
 .hero__scroller {
     position: absolute;
-    bottom: 60px;
+    top: 300px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
