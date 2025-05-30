@@ -79,6 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const previewImg = imagePreview.querySelector('img') || document.createElement('img');
                 previewImg.src = e.target.result;
                 previewImg.style.display = 'block';
+                previewImg.style.maxWidth = '100%';
+                previewImg.style.maxHeight = '200px';
                 imagePreview.appendChild(previewImg);
             }
             reader.readAsDataURL(this.files[0]);
@@ -89,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Добавление проекта
+    // Добавление/редактирование проекта
     document.getElementById('add-project').addEventListener('click', function() {
         const title = document.getElementById('project-title').value;
         const desc = document.getElementById('project-desc').value;
@@ -103,15 +105,32 @@ document.addEventListener('DOMContentLoaded', function() {
         let image = '';
         const imageSource = document.querySelector('input[name="image-source"]:checked').value;
         
+        const editingId = this.dataset.editingId;
+        
         if (imageSource === 'url') {
             image = document.getElementById('project-image-url').value || 'placeholder.jpg';
-            addProjectToStorage(title, desc, link, image);
+            
+            // Валидация URL
+            if (image && !isValidUrl(image)) {
+                showNotification('Введите корректный URL изображения', true);
+                return;
+            }
+            
+            if (editingId) {
+                updateProject(editingId, title, desc, link, image);
+            } else {
+                addProjectToStorage(title, desc, link, image);
+            }
         } else {
             if (fileInput.files.length > 0) {
                 // Конвертация файла в Data URL
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    addProjectToStorage(title, desc, link, e.target.result);
+                    if (editingId) {
+                        updateProject(editingId, title, desc, link, e.target.result);
+                    } else {
+                        addProjectToStorage(title, desc, link, e.target.result);
+                    }
                 };
                 reader.readAsDataURL(fileInput.files[0]);
             } else {
@@ -135,19 +154,31 @@ document.addEventListener('DOMContentLoaded', function() {
         
         localStorage.setItem('projects', JSON.stringify(projects));
         renderProjects(projects);
-        
-        // Очистка формы
-        document.getElementById('project-title').value = '';
-        document.getElementById('project-desc').value = '';
-        document.getElementById('project-link').value = '';
-        document.getElementById('project-image-url').value = '';
-        fileInput.value = '';
-        fileName.textContent = 'Файл не выбран';
-        
-        const previewImg = imagePreview.querySelector('img');
-        if (previewImg) previewImg.style.display = 'none';
+        resetProjectForm();
         
         showNotification('Проект добавлен!');
+    }
+    
+    // Функция для обновления проекта
+    function updateProject(id, title, desc, link, image) {
+        const projects = JSON.parse(localStorage.getItem('projects'));
+        const projectIndex = projects.findIndex(p => p.id === parseInt(id));
+        
+        if (projectIndex !== -1) {
+            projects[projectIndex] = {
+                ...projects[projectIndex],
+                title: title,
+                desc: desc,
+                link: link,
+                image: image
+            };
+            
+            localStorage.setItem('projects', JSON.stringify(projects));
+            renderProjects(projects);
+            resetProjectForm();
+            
+            showNotification('Проект обновлен!');
+        }
     }
 
     // Рендер проектов
@@ -163,6 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
         projects.forEach(project => {
             const projectEl = document.createElement('div');
             projectEl.className = 'project-item';
+            projectEl.dataset.id = project.id;
             projectEl.innerHTML = `
                 <div class="project-item__info">
                     <h4 class="project-item__title">${project.title}</h4>
@@ -170,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${project.link ? `<p class="project-item__link"><small>Ссылка: <a href="${project.link}" target="_blank">${project.link}</a></small></p>` : ''}
                 </div>
                 <div class="project-item__actions">
+                    <button class="btn btn--edit edit-project" data-id="${project.id}">✎</button>
                     <button class="btn btn--delete delete-project" data-id="${project.id}">Удалить</button>
                 </div>
             `;
@@ -187,6 +220,134 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderProjects(updatedProjects);
                 showNotification('Проект удален');
             });
+        });
+        
+        // Редактирование проекта
+        document.querySelectorAll('.edit-project').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const projectId = parseInt(this.dataset.id);
+                const projects = JSON.parse(localStorage.getItem('projects'));
+                const project = projects.find(p => p.id === projectId);
+                
+                if (project) {
+                    populateProjectForm(project);
+                }
+            });
+        });
+        
+        // Инициализация сортировки
+        initSortable();
+    }
+    
+    // Заполнение формы для редактирования
+    function populateProjectForm(project) {
+        document.getElementById('project-title').value = project.title;
+        document.getElementById('project-desc').value = project.desc;
+        document.getElementById('project-link').value = project.link || '';
+        
+        // Определение типа изображения
+        if (project.image.startsWith('data:image')) {
+            // Это загруженное изображение
+            document.querySelector('input[name="image-source"][value="upload"]').checked = true;
+            document.querySelector('.image-url-field').style.display = 'none';
+            document.querySelector('.image-upload-field').style.display = 'block';
+            
+            // Показ превью
+            const previewImg = imagePreview.querySelector('img') || document.createElement('img');
+            previewImg.src = project.image;
+            previewImg.style.display = 'block';
+            previewImg.style.maxWidth = '100%';
+            previewImg.style.maxHeight = '200px';
+            imagePreview.innerHTML = '';
+            imagePreview.appendChild(previewImg);
+            fileName.textContent = 'Изображение загружено';
+        } else {
+            // Это URL
+            document.querySelector('input[name="image-source"][value="url"]').checked = true;
+            document.querySelector('.image-url-field').style.display = 'block';
+            document.querySelector('.image-upload-field').style.display = 'none';
+            document.getElementById('project-image-url').value = project.image;
+        }
+        
+        // Изменение кнопки на "Сохранить изменения"
+        const addButton = document.getElementById('add-project');
+        addButton.textContent = 'Сохранить изменения';
+        addButton.dataset.editingId = project.id;
+    }
+    
+    // Сброс формы проекта
+    function resetProjectForm() {
+        document.getElementById('project-title').value = '';
+        document.getElementById('project-desc').value = '';
+        document.getElementById('project-link').value = '';
+        document.getElementById('project-image-url').value = '';
+        fileInput.value = '';
+        fileName.textContent = 'Файл не выбран';
+        
+        const previewImg = imagePreview.querySelector('img');
+        if (previewImg) previewImg.style.display = 'none';
+        
+        // Возврат кнопки в исходное состояние
+        const addButton = document.getElementById('add-project');
+        addButton.textContent = 'Добавить проект';
+        if (addButton.dataset.editingId) {
+            delete addButton.dataset.editingId;
+        }
+    }
+    
+    // Валидация URL
+    function isValidUrl(string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+    
+    // Инициализация сортировки
+    function initSortable() {
+        // Используем библиотеку SortableJS (убедитесь, что подключили её в HTML)
+        if (typeof Sortable !== 'undefined') {
+            new Sortable(document.getElementById('projects-list'), {
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                onEnd: function(evt) {
+                    const projects = JSON.parse(localStorage.getItem('projects')) || [];
+                    const projectElements = Array.from(evt.to.children);
+                    
+                    // Создаем новый порядок проектов
+                    const reorderedProjects = projectElements.map(el => {
+                        return projects.find(p => p.id === parseInt(el.dataset.id));
+                    });
+                    
+                    localStorage.setItem('projects', JSON.stringify(reorderedProjects));
+                }
+            });
+        }
+    }
+    
+    // Сжатие изображения
+    function compressImage(file, maxWidth = 800, quality = 0.7) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.src = e.target.result;
+                
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const scale = Math.min(maxWidth / img.width, 1);
+                    canvas.width = img.width * scale;
+                    canvas.height = img.height * scale;
+                    
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+            };
+            reader.readAsDataURL(file);
         });
     }
 
