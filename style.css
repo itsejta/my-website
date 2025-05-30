@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #3a86ff;
-    --secondary-color: #8338ec;
+    --primary-color: #6c63ff;
+    --secondary-color: #072d69;
     --dark-color: #1a1a1a;
     --light-color: #f8f9fa;
     --gray-color: #6c757d;
@@ -12,8 +12,8 @@
 }
 
 [data-theme="dark"] {
-    --primary-color: #6c63ff;
-    --secondary-color: #3a86ff;
+    --primary-color: #e5c239;
+    --secondary-color: #cf623a;
     --dark-color: #f8f9fa;
     --light-color: #1a1a1a;
     --gray-color: #adb5bd;
@@ -191,7 +191,7 @@ body {
 
 .hero__scroller {
     position: absolute;
-    bottom: 60px;
+    top: 280px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
