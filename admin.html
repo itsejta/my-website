@@ -99,9 +99,44 @@
                             <textarea class="form-textarea" id="project-desc" required></textarea>
                         </div>
                         
+                        <!-- Поле для ссылки на проект -->
                         <div class="form-group">
+                            <label class="form-label">Ссылка на проект</label>
+                            <input type="url" class="form-input" id="project-link" placeholder="https://example.com">
+                        </div>
+                        
+                        <!-- Выбор источника изображения -->
+                        <div class="form-group">
+                            <label class="form-label">Источник изображения</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="image-source" value="url" checked>
+                                    <span>URL изображения</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="image-source" value="upload">
+                                    <span>Загрузить файл</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Поле для URL -->
+                        <div class="form-group image-url-field">
                             <label class="form-label">URL изображения</label>
-                            <input type="text" class="form-input" id="project-image">
+                            <input type="text" class="form-input" id="project-image-url" placeholder="https://example.com/image.jpg">
+                        </div>
+                        
+                        <!-- Поле для загрузки файла -->
+                        <div class="form-group image-upload-field" style="display: none;">
+                            <label class="form-label">Загрузить изображение</label>
+                            <div class="file-upload">
+                                <input type="file" id="project-image-file" accept="image/*">
+                                <label for="project-image-file" class="file-upload-label">
+                                    <span>Выбрать файл</span>
+                                </label>
+                                <span id="file-name">Файл не выбран</span>
+                            </div>
+                            <div class="image-preview" id="image-preview"></div>
                         </div>
                         
                         <div class="form-actions">

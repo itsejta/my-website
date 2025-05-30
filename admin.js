@@ -47,23 +47,89 @@ document.addEventListener('DOMContentLoaded', function() {
         showNotification('Общая информация сохранена!');
     });
 
+    // Переключение между URL и загрузкой файла
+    const imageSourceRadios = document.querySelectorAll('input[name="image-source"]');
+    const urlField = document.querySelector('.image-url-field');
+    const uploadField = document.querySelector('.image-upload-field');
+    const fileInput = document.getElementById('project-image-file');
+    const fileName = document.getElementById('file-name');
+    const imagePreview = document.getElementById('image-preview');
+    
+    // Обработка переключения
+    imageSourceRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'url') {
+                urlField.style.display = 'block';
+                uploadField.style.display = 'none';
+            } else {
+                urlField.style.display = 'none';
+                uploadField.style.display = 'block';
+            }
+        });
+    });
+    
+    // Обработка выбора файла
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            fileName.textContent = this.files[0].name;
+            
+            // Показ превью
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewImg = imagePreview.querySelector('img') || document.createElement('img');
+                previewImg.src = e.target.result;
+                previewImg.style.display = 'block';
+                imagePreview.appendChild(previewImg);
+            }
+            reader.readAsDataURL(this.files[0]);
+        } else {
+            fileName.textContent = 'Файл не выбран';
+            const previewImg = imagePreview.querySelector('img');
+            if (previewImg) previewImg.style.display = 'none';
+        }
+    });
+    
     // Добавление проекта
     document.getElementById('add-project').addEventListener('click', function() {
         const title = document.getElementById('project-title').value;
         const desc = document.getElementById('project-desc').value;
-        const image = document.getElementById('project-image').value || 'placeholder.jpg';
+        const link = document.getElementById('project-link').value;
         
         if (!title || !desc) {
             showNotification('Заполните название и описание проекта', true);
             return;
         }
         
+        let image = '';
+        const imageSource = document.querySelector('input[name="image-source"]:checked').value;
+        
+        if (imageSource === 'url') {
+            image = document.getElementById('project-image-url').value || 'placeholder.jpg';
+            addProjectToStorage(title, desc, link, image);
+        } else {
+            if (fileInput.files.length > 0) {
+                // Конвертация файла в Data URL
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    addProjectToStorage(title, desc, link, e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                showNotification('Выберите файл изображения', true);
+                return;
+            }
+        }
+    });
+    
+    // Функция для добавления проекта в хранилище
+    function addProjectToStorage(title, desc, link, image) {
         const projects = JSON.parse(localStorage.getItem('projects')) || [];
         
         projects.push({
             id: Date.now(),
             title: title,
             desc: desc,
+            link: link,
             image: image
         });
         
@@ -73,10 +139,16 @@ document.addEventListener('DOMContentLoaded', function() {
         // Очистка формы
         document.getElementById('project-title').value = '';
         document.getElementById('project-desc').value = '';
-        document.getElementById('project-image').value = '';
+        document.getElementById('project-link').value = '';
+        document.getElementById('project-image-url').value = '';
+        fileInput.value = '';
+        fileName.textContent = 'Файл не выбран';
+        
+        const previewImg = imagePreview.querySelector('img');
+        if (previewImg) previewImg.style.display = 'none';
         
         showNotification('Проект добавлен!');
-    });
+    }
 
     // Рендер проектов
     function renderProjects(projects) {
@@ -95,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="project-item__info">
                     <h4 class="project-item__title">${project.title}</h4>
                     <p class="project-item__desc">${project.desc}</p>
+                    ${project.link ? `<p class="project-item__link"><small>Ссылка: <a href="${project.link}" target="_blank">${project.link}</a></small></p>` : ''}
                 </div>
                 <div class="project-item__actions">
                     <button class="btn btn--delete delete-project" data-id="${project.id}">Удалить</button>

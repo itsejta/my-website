@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Рендер проектов
+    // Рендер проектов (обновлённая функция)
     function renderProjects(projects) {
         const container = document.getElementById('projects-container');
         container.innerHTML = '';
@@ -174,11 +174,20 @@ document.addEventListener('DOMContentLoaded', function() {
         projects.forEach(project => {
             const projectEl = document.createElement('div');
             projectEl.className = 'project-card';
+            
+            // Определяем кнопку для проекта
+            let projectButton;
+            if (project.link) {
+                projectButton = `<a href="${project.link}" target="_blank" class="btn">Посмотреть проект</a>`;
+            } else {
+                projectButton = `<a href="#" class="btn">Подробнее</a>`;
+            }
+            
             projectEl.innerHTML = `
                 <div class="project-card__image">
                     <img src="${project.image}" data-src="${project.image}" alt="${project.title}" loading="lazy" class="lazyload">
                     <div class="project-card__overlay">
-                        <a href="#" class="btn">Подробнее</a>
+                        ${projectButton}
                     </div>
                 </div>
                 <div class="project-card__content">
